@@ -13,10 +13,10 @@ class CpuLoadChart extends ChartWidget
 
     protected function getData(): array
     {
-        $logs = TelemetryLog::getRecent(30);
+        $logs = collect(TelemetryLog::getRecent(30));
 
-        $labels = $logs->map(fn ($log) => $log->created_at->format('H:i:s'))->toArray();
-        $cpuData = $logs->map(fn ($log) => round($log->cpu_load, 1))->toArray();
+        $labels = $logs->map(fn ($log) => \Carbon\Carbon::parse($log['created_at'])->format('H:i:s'))->toArray();
+        $cpuData = $logs->map(fn ($log) => round($log['cpu_load'], 1))->toArray();
 
         return [
             'datasets' => [

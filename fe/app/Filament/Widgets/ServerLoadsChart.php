@@ -13,9 +13,9 @@ class ServerLoadsChart extends ChartWidget
 
     protected function getData(): array
     {
-        $logs = TelemetryLog::getRecent(30);
+        $logs = collect(TelemetryLog::getRecent(30));
 
-        $labels = $logs->map(fn ($log) => $log->created_at->format('H:i:s'))->toArray();
+        $labels = $logs->map(fn ($log) => \Carbon\Carbon::parse($log['created_at'])->format('H:i:s'))->toArray();
 
         $colors = ['#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#06b6d4'];
 
@@ -23,7 +23,7 @@ class ServerLoadsChart extends ChartWidget
         for ($i = 0; $i < 5; $i++) {
             $datasets[] = [
                 'label' => "Server " . ($i + 1),
-                'data' => $logs->map(fn ($log) => $log->server_loads[$i] ?? 0)->toArray(),
+                'data' => $logs->map(fn ($log) => $log['server_loads'][$i] ?? 0)->toArray(),
                 'borderColor' => $colors[$i],
                 'backgroundColor' => 'transparent',
                 'fill' => false,

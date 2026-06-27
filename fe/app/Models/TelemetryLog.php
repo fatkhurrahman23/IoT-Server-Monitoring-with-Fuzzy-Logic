@@ -22,17 +22,18 @@ class TelemetryLog extends Model
         'ac_target' => 'float',
     ];
 
-    public static function getRecent(int $limit = 30): iterable
+    public static function getRecent(int $limit = 30): array
     {
         return Cache::remember('telemetry_recent_' . $limit, 1, function () use ($limit) {
-            return static::latest()->take($limit)->get()->reverse()->values();
+            return static::latest()->take($limit)->get()->reverse()->values()->toArray();
         });
     }
 
-    public static function getLatest(): ?self
+    public static function getLatest(): ?array
     {
         return Cache::remember('telemetry_latest', 1, function () {
-            return static::latest()->first();
+            $latest = static::latest()->first();
+            return $latest ? $latest->toArray() : null;
         });
     }
 }

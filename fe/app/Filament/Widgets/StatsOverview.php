@@ -15,10 +15,10 @@ class StatsOverview extends BaseWidget
     {
         $latest = TelemetryLog::getLatest();
 
-        $temp = $latest ? $latest->temp : '--';
-        $cpu = $latest ? $latest->cpu_load : '--';
-        $ac = $latest ? $latest->ac_target : '--';
-        $status = $latest ? ($latest->status ?? 'idle') : 'idle';
+        $temp = $latest ? $latest['temp'] : '--';
+        $cpu = $latest ? $latest['cpu_load'] : '--';
+        $ac = $latest ? $latest['ac_target'] : '--';
+        $status = $latest ? ($latest['status'] ?? 'idle') : 'idle';
 
         $tempColor = is_numeric($temp) ? $this->getTempColor((float) $temp) : 'gray';
         $cpuColor = is_numeric($cpu) ? $this->getCpuColor((float) $cpu) : 'gray';

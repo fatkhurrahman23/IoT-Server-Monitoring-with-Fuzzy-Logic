@@ -13,10 +13,10 @@ class RoomTempChart extends ChartWidget
 
     protected function getData(): array
     {
-        $logs = TelemetryLog::getRecent(30);
+        $logs = collect(TelemetryLog::getRecent(30));
 
-        $labels = $logs->map(fn ($log) => $log->created_at->format('H:i:s'))->toArray();
-        $tempData = $logs->map(fn ($log) => round($log->temp, 1))->toArray();
+        $labels = $logs->map(fn ($log) => \Carbon\Carbon::parse($log['created_at'])->format('H:i:s'))->toArray();
+        $tempData = $logs->map(fn ($log) => round($log['temp'], 1))->toArray();
 
         return [
             'datasets' => [

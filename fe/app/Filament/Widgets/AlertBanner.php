@@ -16,8 +16,8 @@ class AlertBanner extends Widget
         $latest = TelemetryLog::getLatest();
 
         return [
-            'alert' => $latest && $latest->temp > 35,
-            'temp' => $latest ? $latest->temp : 0,
+            'alert' => $latest && ($latest['temp'] > 35),
+            'temp' => $latest ? $latest['temp'] : 0,
         ];
     }
 }
