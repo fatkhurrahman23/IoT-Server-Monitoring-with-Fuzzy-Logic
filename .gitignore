@@ -1,0 +1,16 @@
+fe/vendor/
+fe/node_modules/
+fe/.env
+fe/storage/
+fe/database/database.sqlite
+fe/bootstrap/cache/
+fe/public/hot/
+fe/public/storage
+backend/__pycache__/
+backend/*.pyc
+*.pyc
+__pycache__/
+.env
+*.log
+.DS_Store
+Thumbs.db
