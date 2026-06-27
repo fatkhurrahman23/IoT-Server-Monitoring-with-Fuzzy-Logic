@@ -18,26 +18,34 @@ class StatsOverview extends BaseWidget
         $temp = $latest ? $latest->temp : '--';
         $cpu = $latest ? $latest->cpu_load : '--';
         $ac = $latest ? $latest->ac_target : '--';
+        $status = $latest ? ($latest->status ?? 'idle') : 'idle';
 
         $tempColor = is_numeric($temp) ? $this->getTempColor((float) $temp) : 'gray';
         $cpuColor = is_numeric($cpu) ? $this->getCpuColor((float) $cpu) : 'gray';
         $acColor = is_numeric($ac) ? $this->getAcColor((float) $ac) : 'gray';
+        $statusColor = $this->getStatusColor($status);
+        $statusLabel = $this->getStatusLabel($status);
 
         return [
             Stat::make('Suhu Ruangan', is_numeric($temp) ? number_format((float) $temp, 1) . '°C' : '-- °C')
                 ->description('Terkini')
-                ->color($tempColor)
-                ->icon('heroicon-o-globe-alt'),
+                ->descriptionIcon('heroicon-m-arrow-trending-up')
+                ->color($tempColor),
 
-            Stat::make('Beban CPU', is_numeric($cpu) ? number_format((float) $cpu, 0) . '%' : '-- %')
-                ->description('Terkini')
-                ->color($cpuColor)
-                ->icon('heroicon-o-cpu-chip'),
+            Stat::make('MAX CPU Load', is_numeric($cpu) ? number_format((float) $cpu, 0) . '%' : '-- %')
+                ->description('Server dengan beban tertinggi')
+                ->descriptionIcon('heroicon-m-cpu-chip')
+                ->color($cpuColor),
 
             Stat::make('Target Suhu AC', is_numeric($ac) ? number_format((float) $ac, 1) . '°C' : '-- °C')
                 ->description('Output Fuzzy AI')
-                ->color($acColor)
-                ->icon('heroicon-o-beaker'),
+                ->descriptionIcon('heroicon-m-beaker')
+                ->color($acColor),
+
+            Stat::make('Status AC', ucfirst($statusLabel))
+                ->description('Status pendinginan')
+                ->descriptionIcon('heroicon-m-cog-6-tooth')
+                ->color($statusColor),
         ];
     }
 
@@ -60,5 +68,25 @@ class StatsOverview extends BaseWidget
         if ($ac <= 18) return 'info';
         if ($ac >= 26) return 'warning';
         return 'success';
+    }
+
+    private function getStatusColor(string $status): string
+    {
+        return match ($status) {
+            'idle' => 'success',
+            'cooling' => 'warning',
+            'full' => 'info',
+            default => 'gray',
+        };
+    }
+
+    private function getStatusLabel(string $status): string
+    {
+        return match ($status) {
+            'idle' => 'hemat energi',
+            'cooling' => 'pendinginan normal',
+            'full' => 'pendinginan maksimal',
+            default => $status,
+        };
     }
 }

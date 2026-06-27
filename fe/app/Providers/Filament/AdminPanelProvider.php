@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\AlertBanner;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\RoomTempChart;
 use App\Filament\Widgets\CpuLoadChart;
@@ -45,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
+                AlertBanner::class,
                 StatsOverview::class,
                 RoomTempChart::class,
                 CpuLoadChart::class,
