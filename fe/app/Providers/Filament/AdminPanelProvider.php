@@ -62,7 +62,11 @@ class AdminPanelProvider extends PanelProvider
                             if (typeof Echo !== 'undefined') {
                                 Echo.channel('telemetry')
                                     .listen('.telemetry.updated', () => {
-                                        Livewire.dispatch('refresh');
+                                        if (window.Livewire) {
+                                            window.Livewire.all()
+                                                .filter(c => c.snapshot)
+                                                .forEach(c => c.$refresh());
+                                        }
                                     });
                             }
                         });

@@ -8,12 +8,12 @@ use Filament\Widgets\ChartWidget;
 class CpuLoadChart extends ChartWidget
 {
     protected ?string $heading = 'Histori Beban CPU';
-    protected ?string $pollingInterval = '3s';
+    protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 1;
 
     protected function getData(): array
     {
-        $logs = TelemetryLog::latest()->take(30)->get()->reverse()->values();
+        $logs = TelemetryLog::getRecent(30);
 
         $labels = $logs->map(fn ($log) => $log->created_at->format('H:i:s'))->toArray();
         $cpuData = $logs->map(fn ($log) => round($log->cpu_load, 1))->toArray();

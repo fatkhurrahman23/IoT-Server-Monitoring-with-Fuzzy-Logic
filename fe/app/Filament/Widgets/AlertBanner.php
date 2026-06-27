@@ -7,13 +7,13 @@ use Filament\Widgets\Widget;
 
 class AlertBanner extends Widget
 {
-    protected static ?string $pollingInterval = '3s';
+    protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 'full';
     protected string $view = 'filament.widgets.alert-banner';
 
     protected function getViewData(): array
     {
-        $latest = TelemetryLog::latest()->first();
+        $latest = TelemetryLog::getLatest();
 
         return [
             'alert' => $latest && $latest->temp > 35,

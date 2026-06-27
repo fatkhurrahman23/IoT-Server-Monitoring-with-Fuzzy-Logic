@@ -8,12 +8,12 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
-    protected ?string $pollingInterval = '3s';
+    protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 'full';
 
     protected function getStats(): array
     {
-        $latest = TelemetryLog::latest()->first();
+        $latest = TelemetryLog::getLatest();
 
         $temp = $latest ? $latest->temp : '--';
         $cpu = $latest ? $latest->cpu_load : '--';
