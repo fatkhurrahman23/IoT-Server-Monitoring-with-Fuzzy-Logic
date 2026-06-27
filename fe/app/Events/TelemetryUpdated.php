@@ -15,7 +15,10 @@ class TelemetryUpdated implements ShouldBroadcast
     public function __construct(
         public float $temp,
         public float $cpu_load,
+        public array $servers,
         public float $ac_target,
+        public ?string $status,
+        public bool $alert,
         public string $timestamp,
     ) {}
 

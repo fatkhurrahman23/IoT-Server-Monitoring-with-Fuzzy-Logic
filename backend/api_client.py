@@ -9,11 +9,12 @@ import urllib.error
 from config import LARAVEL_API_URL
 
 
-def send_to_laravel(temp: float, cpu_load: float, ac_target: float):
+def send_to_laravel(temp: float, cpu_load: float, ac_target: float, servers: list = None):
     payload = json.dumps({
         "temp": temp,
         "cpu_load": cpu_load,
         "ac_target": ac_target,
+        "servers": servers if servers else [cpu_load],
     }).encode("utf-8")
 
     req = urllib.request.Request(
