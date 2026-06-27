@@ -49,10 +49,10 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AlertBanner::class,
                 StatsOverview::class,
-                ServerLoadsChart::class,
                 RoomTempChart::class,
                 CpuLoadChart::class,
                 AcTargetChart::class,
+                ServerLoadsChart::class,
             ])
             ->renderHook(
                 PanelsRenderHook::BODY_END,
