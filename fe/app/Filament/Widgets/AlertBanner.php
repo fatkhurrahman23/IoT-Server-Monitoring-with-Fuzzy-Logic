@@ -9,7 +9,7 @@ class AlertBanner extends Widget
 {
     protected static ?string $pollingInterval = '3s';
     protected int|string|array $columnSpan = 'full';
-    protected static string $view = 'filament.widgets.alert-banner';
+    protected string $view = 'filament.widgets.alert-banner';
 
     protected function getViewData(): array
     {

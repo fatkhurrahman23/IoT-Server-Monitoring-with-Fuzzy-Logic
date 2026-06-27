@@ -7,6 +7,7 @@ use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\RoomTempChart;
 use App\Filament\Widgets\CpuLoadChart;
 use App\Filament\Widgets\AcTargetChart;
+use App\Filament\Widgets\ServerLoadsChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -48,6 +49,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AlertBanner::class,
                 StatsOverview::class,
+                ServerLoadsChart::class,
                 RoomTempChart::class,
                 CpuLoadChart::class,
                 AcTargetChart::class,
