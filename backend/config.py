@@ -14,3 +14,10 @@ CPU_MIN = 0.0     # %
 CPU_MAX = 100.0   # %
 AC_MIN = 16.0     # °C (max cooling)
 AC_MAX = 28.0     # °C (min cooling / idle)
+
+# Hysteresis threshold — AC target only changes if delta exceeds this value
+HYSTERESIS_THRESHOLD = 0.5  # °C
+
+# Alert threshold — trigger warning if room temp exceeds this value
+ALERT_TEMP_THRESHOLD = 35.0  # °C
+

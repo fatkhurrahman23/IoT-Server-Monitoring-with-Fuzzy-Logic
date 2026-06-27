@@ -33,11 +33,13 @@ class MqttHandler:
             print(f"[MQTT] Error connecting to broker: {e}")
             raise
 
-    def publish_ac_control(self, ac_temp: float, temp: float, cpu_load: float):
+    def publish_ac_control(self, ac_temp: float, temp: float, cpu_load: float, status: str = "", alert: bool = False):
         payload = {
             "ac_target": ac_temp,
             "temp": temp,
             "cpu_load": cpu_load,
+            "status": status,
+            "alert": alert,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
         self.client.publish(MQTT_TOPIC_AC_CONTROL, json.dumps(payload))
