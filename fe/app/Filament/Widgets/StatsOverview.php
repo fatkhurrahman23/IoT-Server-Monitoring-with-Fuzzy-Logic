@@ -9,7 +9,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class StatsOverview extends BaseWidget
 {
     protected ?string $pollingInterval = '1s';
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = ['md' => 3, 'xl' => 3];
     protected static ?int $sort = 2;
 
     protected function getStats(): array

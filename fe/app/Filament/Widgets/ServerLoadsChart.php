@@ -9,7 +9,7 @@ class ServerLoadsChart extends ChartWidget
 {
     protected ?string $heading = 'Histori Beban CPU per Server';
     protected ?string $pollingInterval = '1s';
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = ['md' => 3, 'xl' => 3];
     protected static ?int $sort = 6;
 
     protected function getData(): array
@@ -24,7 +24,10 @@ class ServerLoadsChart extends ChartWidget
         for ($i = 0; $i < 5; $i++) {
             $datasets[] = [
                 'label' => "Server " . ($i + 1),
-                'data' => $logs->map(fn ($log) => $log['server_loads'][$i] ?? 0)->toArray(),
+                'data' => $logs->map(function ($log) use ($i) {
+                    $loads = is_string($log['server_loads']) ? json_decode($log['server_loads'], true) : $log['server_loads'];
+                    return is_array($loads) ? ($loads[$i] ?? 0) : 0;
+                })->toArray(),
                 'borderColor' => $colors[$i],
                 'backgroundColor' => 'transparent',
                 'fill' => false,

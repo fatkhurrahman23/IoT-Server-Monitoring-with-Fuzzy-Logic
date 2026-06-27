@@ -8,7 +8,7 @@ use Filament\Widgets\Widget;
 class AlertBanner extends Widget
 {
     protected ?string $pollingInterval = '1s';
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = ['md' => 3, 'xl' => 3];
     protected static ?int $sort = 1;
     protected string $view = 'filament.widgets.alert-banner';
 
