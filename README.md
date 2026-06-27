@@ -1,26 +1,26 @@
 # 🖥️ IoT Server Room Monitoring with Fuzzy Logic
 
-**Simulasi Pemantauan & Kendali Otomatis Suhu Ruang Server berbasis Logika Fuzzy Sugeno**
+**Server Room Temperature Monitoring & Automatic Control Simulation based on Sugeno Fuzzy Logic**
 
-Sistem simulasi perangkat lunak untuk memantau infrastruktur kritikal (ruang server) dan mengendalikan sistem pendingin (AC) secara otomatis menggunakan kecerdasan buatan (*Artificial Intelligence*) — Logika Fuzzy Metode Sugeno.
+A software-based simulation system for monitoring critical infrastructure (server rooms) and controlling the cooling system (AC) automatically using Artificial Intelligence — the Sugeno Fuzzy Logic method.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Key Features
 
-| Fitur | Deskripsi |
+| Feature | Description |
 |---|---|
-| **🧠 Fuzzy Logic Sugeno** | Algoritma AI murni Python (tanpa library ML) — 2 input, 9 aturan, output target suhu AC |
-| **🖥️ Multi-Server** | 5 server dengan beban CPU terpisah, agregasi MAX untuk cooling decision |
-| **📊 Real-Time Dashboard** | Dashboard Filament dengan polling 1 detik + WebSocket Reverb |
-| **⚠️ Alert System** | Overheat warning (suhu > 35°C) + AC status indicator (idle/cooling/full) |
-| **🔄 Hysteresis** | Anti-rapid cycling — AC hanya berubah jika selisih > 0.5°C |
-| **🔌 MQTT Protocol** | Komunikasi real-time via Eclipse Mosquitto broker |
-| **🐳 Docker** | MySQL + Mosquitto dalam container untuk deployment mudah |
+| **🧠 Fuzzy Logic Sugeno** | Pure Python AI algorithm (no ML libraries) — 2 inputs, 9 rules, AC target temperature output |
+| **🖥️ Multi-Server** | 5 servers with separate CPU loads, MAX aggregation for cooling decisions |
+| **📊 Real-Time Dashboard** | Filament dashboard with 1-second polling + Reverb WebSocket |
+| **⚠️ Alert System** | Overheat warning (temp > 35°C) + AC status indicator (idle/cooling/full) |
+| **🔄 Hysteresis** | Anti-rapid cycling — AC only changes when delta > 0.5°C |
+| **🔌 MQTT Protocol** | Real-time communication via Eclipse Mosquitto broker |
+| **🐳 Docker** | MySQL + Mosquitto in containers for easy deployment |
 
 ---
 
-## 🏗️ Arsitektur
+## 🏗️ Architecture
 
 ```
 ┌──────────┐     MQTT      ┌──────────┐    HTTP POST    ┌──────────────┐
@@ -33,25 +33,25 @@ Sistem simulasi perangkat lunak untuk memantau infrastruktur kritikal (ruang ser
 
 ---
 
-## 📋 Prasyarat
+## 📋 Prerequisites
 
-### Wajib
-- **Python 3.9+** — untuk AI Engine
-- **PHP 8.2+** + **Composer** — untuk Laravel
-- **Node.js 16+** — untuk Node-RED
-- **Git** — untuk clone repository
+### Required
+- **Python 3.9+** — for AI Engine
+- **PHP 8.2+** + **Composer** — for Laravel
+- **Node.js 16+** — for Node-RED
+- **Git** — for cloning the repository
 
-### Opsional
-- **Docker Desktop** — untuk MySQL + Mosquitto (jika tidak ingin install manual)
+### Optional
+- **Docker Desktop** — for MySQL + Mosquitto (if you don't want to install manually)
 
-### Library Python
+### Python Library
 ```bash
 pip install paho-mqtt
 ```
 
 ---
 
-## 🚀 Panduan Instalasi
+## 🚀 Installation Guide
 
 ### 1. Clone Repository
 
@@ -60,13 +60,13 @@ git clone https://github.com/fatkhurrahman23/IoT-Server-Monitoring-with-Fuzzy-Lo
 cd IoT-Server-Monitoring-with-Fuzzy-Logic
 ```
 
-### 2. Infrastruktur (Docker)
+### 2. Infrastructure (Docker)
 
 ```bash
 docker-compose up -d
 ```
 
-> Menjalankan MySQL (port 3306) + Eclipse Mosquitto MQTT (port 1883, 9001)
+> Runs MySQL (port 3306) + Eclipse Mosquitto MQTT (ports 1883, 9001)
 
 ### 3. Node-RED Simulator
 
@@ -75,9 +75,9 @@ npm install -g node-red node-red-dashboard
 node-red
 ```
 
-- Buka http://localhost:1880
-- Import `nodered/flows.json` (Menu kanan atas → Import)
-- **Deploy** (tombol merah)
+- Open http://localhost:1880
+- Import `nodered/flows.json` (top right menu → Import)
+- **Deploy** (red button)
 - Dashboard UI: http://localhost:1880/ui
 
 ### 4. Python AI Engine
@@ -88,7 +88,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Output console:
+Console output:
 ```
 === Python Fuzzy Logic Engine Started ===
 Waiting for telemetry data from Node-RED...
@@ -106,7 +106,7 @@ php artisan serve
 ```
 
 - Dashboard: http://localhost:8000/admin
-- Kredensial: **admin@trk.local** / **password**
+- Credentials: **admin@trk.local** / **password**
 
 ### 6. Reverb WebSocket (Real-Time Push)
 
@@ -115,38 +115,38 @@ cd frontend
 php artisan reverb:start
 ```
 
-> Opsional — Dashboard tetap berfungsi via polling tanpa Reverb.
+> Optional — Dashboard still works via polling without Reverb.
 
 ---
 
-## 📂 Struktur Direktori
+## 📂 Directory Structure
 
 ```
 IoT-Server-Monitoring-with-Fuzzy-Logic/
-├── README.md                     # File ini
-├── DOKUMENTASI-SISTEM.md         # Dokumentasi teknis lengkap
-├── FUZZY-LOGIC.md                # Perhitungan detail Logika Fuzzy
-├── SYSTEM-DESIGN.md              # Desain awal sistem
+├── README.md                     # This file
+├── DOKUMENTASI-SISTEM.md         # Complete technical documentation
+├── FUZZY-LOGIC.md                # Detailed Fuzzy Logic calculations
+├── SYSTEM-DESIGN.md              # Initial system design
 ├── docker-compose.yml            # MySQL + Mosquitto
 ├── mosquitto/
-│   └── mosquitto.conf            # Konfigurasi MQTT broker
+│   └── mosquitto.conf            # MQTT broker configuration
 ├── backend/                       # Python AI Engine
 │   ├── main.py                    # Entry daemon
 │   ├── fuzzy_sugeno.py            # FIS Sugeno (hardcoded)
 │   ├── mqtt_handler.py            # MQTT pub/sub
-│   ├── api_client.py              # HTTP POST ke Laravel
-│   ├── config.py                  # Threshold, broker, range
+│   ├── api_client.py              # HTTP POST to Laravel
+│   ├── config.py                  # Thresholds, broker, ranges
 │   └── requirements.txt
 ├── nodered/                       # Node-RED Simulator
 │   ├── flows.json                 # Flow (importable)
-│   └── README.md                  # Panduan Node-RED
+│   └── README.md                  # Node-RED guide
 └── frontend/                      # Laravel Dashboard
     ├── app/
     │   ├── Events/TelemetryUpdated.php
     │   ├── Filament/Pages/Dashboard.php
     │   ├── Filament/Widgets/       # 6 widgets (alert, stats, 4 charts)
     │   ├── Http/Controllers/Api/
-    │   ├── Models/TelemetryLog.php #
+    │   ├── Models/TelemetryLog.php
     │   └── Providers/
     ├── database/migrations/
     └── routes/api.php
@@ -154,21 +154,21 @@ IoT-Server-Monitoring-with-Fuzzy-Logic/
 
 ---
 
-## 🎮 Cara Menggunakan
+## 🎮 How to Use
 
-### Simulasi Normal
-1. Buka Node-RED Dashboard: http://localhost:1880/ui
-2. Geser slider **Suhu Ruangan** (15–40°C)
-3. Geser slider **Server 1-5 CPU** (0–100%)
-4. Amati **Output Monitor** di Node-RED dan **Dashboard** Laravel
+### Normal Simulation
+1. Open Node-RED Dashboard: http://localhost:1880/ui
+2. Slide the **Room Temperature** slider (15–40°C)
+3. Slide the **Server 1-5 CPU** sliders (0–100%)
+4. Observe the **Output Monitor** in Node-RED and the **Dashboard** in Laravel
 
-### Skenario Uji
+### Test Scenarios
 
-| Skenario | Suhu | Server CPU | Hasil AC | Status |
+| Scenario | Temp | Server CPU | AC Output | Status |
 |---|---|---|---|---|
 | Idle | 22°C | [10,15,5,12,8] | ~26°C | idle |
 | Normal | 25°C | [50,60,45,55,40] | ~22°C | cooling |
-| Beban Tinggi | 28°C | [80,75,90,85,70] | ~18°C | cooling |
+| High Load | 28°C | [80,75,90,85,70] | ~18°C | cooling |
 | Overheat | 38°C | [95,90,98,92,88] | ~16°C | full ⚠️ ALERT |
 
 ---
@@ -177,7 +177,7 @@ IoT-Server-Monitoring-with-Fuzzy-Logic/
 
 ### POST `/api/telemetry/ingest`
 
-Menerima data dari Python backend.
+Receives data from the Python backend.
 
 **Request:**
 ```json
@@ -198,7 +198,7 @@ Menerima data dari Python backend.
 
 ---
 
-## 🔧 Konfigurasi
+## 🔧 Configuration
 
 ### Python (`backend/config.py`)
 ```python
@@ -210,7 +210,7 @@ ALERT_TEMP_THRESHOLD = 35.0    # °C
 
 ### Laravel (`.env`)
 ```env
-DB_CONNECTION=sqlite            # atau mysql
+DB_CONNECTION=sqlite            # or mysql
 BROADCAST_CONNECTION=reverb
 REVERB_HOST="localhost"
 REVERB_PORT=8080
@@ -218,34 +218,27 @@ REVERB_PORT=8080
 
 ---
 
-## 📚 Dokumentasi
+## 📚 Documentation
 
-| File | Isi |
+| File | Contents |
 |---|---|
-| [`DOKUMENTASI-SISTEM.md`](DOKUMENTASI-SISTEM.md) | Arsitektur, komponen, alur data, API, deployment |
-| [`FUZZY-LOGIC.md`](FUZZY-LOGIC.md) | Perhitungan fuzzifikasi, rule base, defuzzifikasi, contoh numerik |
-| [`SYSTEM-DESIGN.md`](SYSTEM-DESIGN.md) | Desain awal sistem & requirement |
+| [`DOKUMENTASI-SISTEM.md`](DOKUMENTASI-SISTEM.md) | Architecture, components, data flow, API, deployment |
+| [`FUZZY-LOGIC.md`](FUZZY-LOGIC.md) | Fuzzification, rule base, defuzzification, numerical examples |
+| [`SYSTEM-DESIGN.md`](SYSTEM-DESIGN.md) | Initial system design & requirements |
 
 ---
 
 ## 🧪 Testing
 
-1. Inject nilai ekstrem di Node-RED:
-   - Suhu 40°C + semua Server 100% → AC harus 16°C, status `full`, alert `ON`
-2. Verifikasi Console Python menampilkan kalkulasi fuzzy
-3. Verifikasi Dashboard Laravel update dalam < 1 detik
-4. Verifikasi Alert Banner merah muncul saat suhu > 35°C
-5. Verifikasi AC Status berubah (hijau/kuning/biru) sesuai kondisi
+1. Inject extreme values in Node-RED:
+   - Temp 40°C + all Servers at 100% → AC should be 16°C, status `full`, alert `ON`
+2. Verify Python console displays fuzzy calculations
+3. Verify Laravel Dashboard updates within < 1 second
+4. Verify Alert Banner turns red when temp > 35°C
+5. Verify AC Status changes (green/yellow/blue) according to conditions
 
 ---
 
-## 📝 Lisensi
+## 📝 License
 
-Proyek ini dibuat untuk keperluan akademik — Tugas Besar Mata Kuliah *Special Topic in Industrial Informatics*.
-
----
-
-## 👤 Author
-
-**Fatkhurrahman** — Politeknik Negeri Semarang (POLINES)  
-GitHub: [@fatkhurrahman23](https://github.com/fatkhurrahman23)
+This project was created for academic purposes — Capstone Project for the *Special Topic in Industrial Informatics* course.
