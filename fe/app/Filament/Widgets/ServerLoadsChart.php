@@ -10,6 +10,7 @@ class ServerLoadsChart extends ChartWidget
     protected ?string $heading = 'Histori Beban CPU per Server';
     protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 'full';
+    protected static ?int $sort = 6;
 
     protected function getData(): array
     {

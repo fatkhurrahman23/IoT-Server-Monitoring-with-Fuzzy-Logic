@@ -10,6 +10,7 @@ class RoomTempChart extends ChartWidget
     protected ?string $heading = 'Histori Suhu Ruangan';
     protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 1;
+    protected static ?int $sort = 3;
 
     protected function getData(): array
     {

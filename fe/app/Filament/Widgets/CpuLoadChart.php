@@ -10,6 +10,7 @@ class CpuLoadChart extends ChartWidget
     protected ?string $heading = 'Histori Beban CPU';
     protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 1;
+    protected static ?int $sort = 4;
 
     protected function getData(): array
     {

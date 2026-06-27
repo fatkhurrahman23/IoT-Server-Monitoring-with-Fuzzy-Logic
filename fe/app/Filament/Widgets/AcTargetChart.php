@@ -10,6 +10,7 @@ class AcTargetChart extends ChartWidget
     protected ?string $heading = 'Histori Target Suhu AC';
     protected ?string $pollingInterval = '1s';
     protected int|string|array $columnSpan = 1;
+    protected static ?int $sort = 5;
 
     protected function getData(): array
     {
